@@ -1,8 +1,19 @@
 
 import { Instagram, Linkedin, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
+  const { toast } = useToast();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: "Message sent!",
+      description: "We'll get back to you soon.",
+    });
+  };
+
   return (
     <div className="min-h-screen py-20 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -35,17 +46,27 @@ const Contact = () => {
                 <span>gdsc@rnsit.ac.in</span>
               </div>
             </div>
+
+            <div className="mt-8">
+              <h4 className="text-xl font-google-sans font-semibold mb-4">Location</h4>
+              <p className="text-gray-600">
+                R N S Institute of Technology<br />
+                Channasandra, RR Nagar<br />
+                Bangalore - 560098
+              </p>
+            </div>
           </div>
 
           <div>
             <h3 className="text-2xl font-google-sans font-semibold mb-6">Send us a Message</h3>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm font-medium mb-1">Name</label>
                 <input 
                   type="text"
                   className="w-full p-2 border rounded-md"
                   placeholder="Your Name"
+                  required
                 />
               </div>
               <div>
@@ -54,6 +75,7 @@ const Contact = () => {
                   type="email"
                   className="w-full p-2 border rounded-md"
                   placeholder="your.email@example.com"
+                  required
                 />
               </div>
               <div>
@@ -61,9 +83,10 @@ const Contact = () => {
                 <textarea 
                   className="w-full p-2 border rounded-md h-32"
                   placeholder="Your message..."
+                  required
                 />
               </div>
-              <Button className="w-full bg-gdsc-blue hover:bg-blue-600">
+              <Button type="submit" className="w-full bg-gdsc-blue hover:bg-blue-600">
                 Send Message
               </Button>
             </form>
